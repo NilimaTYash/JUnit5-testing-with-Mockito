@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeRestController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">cruddemo</a> &gt; <a href="index.source.html" class="el_package">com.yash.springboot.cruddemo.rest</a> &gt; <span class="el_source">EmployeeRestController.java</span></div><h1>EmployeeRestController.java</h1><pre class="source lang-java linenums">package com.yash.springboot.cruddemo.rest;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.yash.springboot.cruddemo.entity.Employee;
+import com.yash.springboot.cruddemo.service.EmployeeNotFoundException;
+import com.yash.springboot.cruddemo.service.EmployeeService;
+
+@RestController
+@RequestMapping(&quot;/api&quot;)
+public class EmployeeRestController {
+	
+	private EmployeeService employeeService;
+	
+	//quick and dirty: inject employee dao
+	@Autowired
+<span class="fc" id="L27">	public EmployeeRestController(EmployeeService theEmployeeService) {</span>
+<span class="fc" id="L28">		employeeService = theEmployeeService;</span>
+<span class="fc" id="L29">	}</span>
+	
+	//expose &quot;/employees&quot; and return list of all employees
+	@GetMapping(&quot;/employees&quot;)
+	public List&lt;Employee&gt; findAll(){
+		
+<span class="fc" id="L35">		return employeeService.findAll();</span>
+	}
+	
+	// add mapping for GET  /employees/(employeeId)
+	@GetMapping(&quot;/employees/{employeeId}&quot;)
+	public Employee findById(@PathVariable int employeeId) {
+<span class="fc" id="L41">		Employee employee = employeeService.findById(employeeId);</span>
+		
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">		if(employee == null) {</span>
+<span class="nc" id="L44">			throw new EmployeeNotFoundException(employeeId);</span>
+		}
+<span class="fc" id="L46">		return employee;</span>
+		
+	}
+	
+	// add mappng for POST /employees  - add new employee
+	@PostMapping(&quot;/addemployees&quot;)
+	public Employee addEmployee(@RequestBody Employee employee) {
+		// also just in case they pass an id in JSOn... set id to 0 
+		// this is to force a save of new item... instead of update
+		
+<span class="fc" id="L56">		employee.setId(0);		</span>
+<span class="fc" id="L57">		employeeService.save(employee);</span>
+<span class="fc" id="L58">		return employee;</span>
+		
+	}
+	
+	
+	// add mapping for DELETE /employees/{employeeId} - delete employee
+	@DeleteMapping(&quot;/delete_employees/{employeeId}&quot;)
+	public String deteteEmployeeById(@PathVariable int employeeId) {
+		
+<span class="fc" id="L67">		Employee employee = employeeService.findById(employeeId);</span>
+		
+		
+		  // thorw exception if null 
+//		if(employee == null) {
+//		 
+//		  throw new EmployeeNotFoundException(employeeId);
+//		  }
+		 
+		
+<span class="fc" id="L77">		employeeService.deleteById(employeeId);</span>
+		
+<span class="fc" id="L79">		return &quot;Delete Employee record for ID - &quot;+employeeId;</span>
+		
+		
+	}
+	
+	
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

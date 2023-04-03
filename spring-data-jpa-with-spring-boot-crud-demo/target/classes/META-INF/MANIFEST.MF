@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Built-By: nilima.thigale
+Build-Jdk: 17.0.3
+Implementation-Title: cruddemo
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.yash.springboot
+Implementation-URL: https://spring.io/projects/spring-boot/cruddemo
+Created-By: Maven Integration for Eclipse
+

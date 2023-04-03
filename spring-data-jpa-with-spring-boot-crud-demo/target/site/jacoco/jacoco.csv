@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+cruddemo,com.yash.springboot.cruddemo.service,EmployeeNotFoundException,12,0,0,0,2,0,1,0,1,0
+cruddemo,com.yash.springboot.cruddemo.service,EmployeeServiceImpl,0,39,1,1,0,12,1,5,0,5
+cruddemo,com.yash.springboot.cruddemo.entity,Employee,0,46,0,0,0,20,0,10,0,10
+cruddemo,com.yash.springboot.cruddemo.rest,EmployeeRestController,5,46,1,1,1,13,1,5,0,5
+cruddemo,com.yash.springboot.cruddemo,CruddemoApplication,5,3,0,0,2,1,1,1,1,1
